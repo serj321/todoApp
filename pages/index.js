@@ -40,14 +40,4 @@ const Home = () => {
 };
 
 
-// Home.getInitialProps = async () => {
-
-//   const res = await fetch(
-//     `http://localhost:3000/api/iEghKr2OYgN4nyzY34kKf7HjrnA3`
-//   ); //${user.uid}
-//   const { data } = await res.json();
-
-//   return { todos: data };
-// };
-
 export default Home;
