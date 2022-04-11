@@ -12,7 +12,6 @@ export default async (req, res) => {
   if (method == "GET") {
     try {
       const todo = await TodoModel.findById(id);
-
       if (!todo) {
         return res.status(400).json({ success: false });
       }
@@ -35,6 +34,7 @@ export default async (req, res) => {
       return res.status(400).json({ success: false });
     }
   } else if (method == "DELETE") {
+    console.log("in delete")
     try {
       const deletedTodo = await TodoModel.deleteOne({ _id: id });
 

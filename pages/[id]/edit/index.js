@@ -3,11 +3,11 @@ import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
-const New = () => {
-  const [todoTitle, setTodoTitle] = useState("");
-  const [todoDesc, setTodoDesc] = useState("");
+const EditTodo = ({data}) => {
+  const [todoTitle, setTodoTitle] = useState(data.todoTitle);
+  const [todoDesc, setTodoDesc] = useState(data.todoDesc);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const user = useAuthState(auth)[0];
@@ -16,7 +16,7 @@ const New = () => {
   useEffect(() => {
     if (isSubmitting) {
       if (Object.keys(errors).length === 0) {
-        createTodo();
+        updateTodo();
       } else {
         setIsSubmitting(false);
       }
@@ -43,11 +43,11 @@ const New = () => {
     return err;
   };
 
-  const createTodo = async() =>{
+  const updateTodo = async() =>{
     try{
-      const res = await fetch('http://localhost:3000/api/todos',
+      const res = await fetch(`http://localhost:3000/api/todos/${router.query.id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Acceept": "application/json",
             "Content-Type": "application/json"
@@ -67,7 +67,7 @@ const New = () => {
         <h1>Loading...</h1>
       ) : (
         <form onSubmit={submitHandler}>
-          <h2>New Todo:</h2>
+          <h2>Edit Todo:</h2>
           <TextFieldStyled
             id="formTodoTitle"
             name="todoTitle"
@@ -90,7 +90,7 @@ const New = () => {
           {errors.description ? <InputError>{errors.description}</InputError> : ""}
 
           <Button variant="contained" color="success" type="submit">
-            Add Todo
+            Update Todo
           </Button>
         </form>
       )}
@@ -107,4 +107,12 @@ const TextFieldStyled = styled(TextField)`
   margin-bottom: .5em;
 `;
 
-export default New;
+export default EditTodo;
+
+export async function getServerSideProps(context){
+  const {id} = context.params
+  const res = await fetch(`http://localhost:3000/api/todos/${id}`)
+  const {data} = await res.json()
+
+  return { props: {data} }
+}

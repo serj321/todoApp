@@ -7,7 +7,6 @@ import React from "react";
 
 function MyApp({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth);
-  console.log(user)
   if (loading) {
     return <div>Loading...</div>;
   }

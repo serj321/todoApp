@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { Button } from "@mui/material";
-import { auth, signOut } from "../firebase";
+import { auth } from "../firebase";
 import Todo from "../componenets/Todo";
 import fetch from "isomorphic-unfetch";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -8,17 +7,17 @@ import { useState, useEffect } from "react";
 
 const Home = () => {
   const user = useAuthState(auth)[0];
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const getTodos = async() =>{
-      const dataRes = await fetch(`http://localhost:3000/api/${user.uid}`) 
-      const {data} = await dataRes.json()
-      console.log(data)
-      setTodos(data)
-    }
+    const getTodos = async () => {
+      const dataRes = await fetch(`http://localhost:3000/api/${user.uid}`);
+      const { data } = await dataRes.json();
+      console.log(data);
+      setTodos(data);
+    };
     getTodos();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -35,9 +34,6 @@ const Home = () => {
       </div>
     </div>
   );
-
-  
 };
-
 
 export default Home;
