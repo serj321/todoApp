@@ -32,7 +32,11 @@ const TodoDetails = () => {
       console.log(err);
     }
   };
-
+  /*
+    With current features, having this page is porbably kind of pointless since we could just take the delete 
+    button and functionality and add them to the Todo Component. For now I'm leaving this page because it'll 
+    allow for further expansion in the future.
+  */
   return (
     <React.Fragment>
       {isDeleting ? (

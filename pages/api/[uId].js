@@ -9,6 +9,7 @@ export default async (req, res) => {
     method,
   } = req;
 
+  // Gets the corresponding todos for a specific user.
   if (method == "GET") {
 
     try {

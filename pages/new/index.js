@@ -15,6 +15,7 @@ const New = () => {
 
   useEffect(() => {
     if (isSubmitting) {
+      // Goes a head with creating a new todo if there are no errors.
       if (Object.keys(errors).length === 0) {
         createTodo();
       } else {
@@ -30,6 +31,8 @@ const New = () => {
     setIsSubmitting(true);
   };
 
+
+  // checks if input fields are ampty and adds an error if they are. This will then trigger the useEffect above.
   const validate = () => {
     let err = {};
 

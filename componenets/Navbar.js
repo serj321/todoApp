@@ -11,7 +11,7 @@ import styled from "styled-components";
 const PaddedLink = styled.span`
   padding-right: 1em;
 `;
-
+// Navbar which is bult with material ui Components.
 const Navbar = () => {
   const logout = () => {
     signOut(auth).then().catch(alert);
