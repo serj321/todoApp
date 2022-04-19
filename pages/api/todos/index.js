@@ -5,26 +5,16 @@ dbConnect();
 
 export default async (req, res) => {
   const { method } = req;
-  if (method == "GET") {
-
+  // Adds a new todo to the databse.
+  if (method == "POST") {
     try {
-      const todos = await TodoModel.find({});
-      res.status(200).json({ success: true, data: todos });
-    }
-    catch (error) {
-      res.status(400).json({ sucess: false });
-    }
-
-  } else if (method == "POST") {
-
-    try {
-      const todo = await TodoModel.create(req.body)
-      res.status(201).json({success: true, data: todo})
-    } 
-    catch (error) {
+      const todo = await TodoModel.create(req.body);
+      res.status(201).json({ success: true, data: todo });
+    } catch (error) {
       console.log(error);
       res.status(400).json({ sucess: false });
     }
-
+  } else {
+    res.status(400).json({ success: false });
   }
 };

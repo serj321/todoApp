@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 import Head from "next/head";
 
+// The login page which handles authentication. Uses Firebase to allow users to login with their google accounts.
 const Login = () => {
   const signIn = () => {
     signInWithPopup(auth, provider).catch(alert);
